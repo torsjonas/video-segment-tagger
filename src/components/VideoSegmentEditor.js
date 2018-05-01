@@ -20,6 +20,8 @@ const styles = theme => ({
   }
 });
 
+const types = require('../types');
+const urls = require('../urls');
 const StyledSegmentTable = withStyles(styles)(SegmentTable);
 const StyledEditSegment = withStyles(styles)(EditSegment);
 
@@ -31,9 +33,12 @@ class VideoSegmentEditor extends Component {
     this.state = {
       type: this.getLocalStorageType(),
       segments: this.getLocalStorageSegments(),
+      url: this.getLocalStorageUrl(),
       start: null,
       end: null,
-      currentTime: null
+      currentTime: null,
+      startX: this.getLocalStorageStartX(),
+      endX: this.getLocalStorageEndX()
     };
   }
 
@@ -47,6 +52,21 @@ class VideoSegmentEditor extends Component {
     return storedSegments ? JSON.parse(storedSegments) : [];
   }
 
+  getLocalStorageUrl = () => {
+    const storedUrl = localStorage.getItem('url');
+    return storedUrl ? storedUrl : "Select a Video URL";
+  }
+
+  getLocalStorageStartX = () => {
+    const storedStartX = localStorage.getItem('startX');
+    return storedStartX ? storedStartX : 428;
+  }
+
+  getLocalStorageEndX = () => {
+    const storedEndX = localStorage.getItem('endX');
+    return storedEndX ? storedEndX : 640;
+  }
+
   onSave = () => {
     if (!this.state.start || !this.state.end) {
       console.log('Warning! Start and end required to save');
@@ -56,9 +76,12 @@ class VideoSegmentEditor extends Component {
     const segments = this.getLocalStorageSegments();
     const newSegments = [
       {
+        url: this.state.url,
         type: this.state.type,
         start: this.state.start,
         end: this.state.end,
+        startX: this.state.startX,
+        endX: this.state.endX,
         created: new Date().toISOString()
       },
       ...segments
@@ -121,6 +144,38 @@ class VideoSegmentEditor extends Component {
     this.videoPlayer.current.play();
   }
 
+  onUrlSelected = (url) => {
+    localStorage.setItem('url', url);
+
+    this.setState({
+      url
+    });
+  }
+
+  onTypeChanged = (type) => {
+    localStorage.setItem('type', type);
+
+    this.setState({
+      type
+    });
+  }
+
+  onStartXChanged = (startX) => {
+    localStorage.setItem('startX', startX);
+
+    this.setState({
+      startX
+    });
+  }
+
+  onEndXChanged = (endX) => {
+    localStorage.setItem('endX', endX);
+
+    this.setState({
+      endX
+    });
+  }
+
   render() {
     return (
       <Grid container>
@@ -128,6 +183,9 @@ class VideoSegmentEditor extends Component {
           <VideoPlayer
             ref={this.videoPlayer}
             onTimeUpdated={this.onTimeUpdated}
+            urls={urls}
+            selectedUrl={this.state.url}
+            onUrlSelected={this.onUrlSelected}
           />
         </Grid>
         <Grid item sm={12}>
@@ -140,6 +198,13 @@ class VideoSegmentEditor extends Component {
             type={this.state.type}
             start={this.state.start}
             end={this.state.end}
+            types={types}
+            onTypeChanged={this.onTypeChanged}
+            selectedType={this.state.type}
+            startX={this.state.startX}
+            endX={this.state.endX}
+            onStartXChanged={this.onStartXChanged}
+            onEndXChanged={this.onEndXChanged}
           />
         </Grid>
         <Grid item sm={12}>

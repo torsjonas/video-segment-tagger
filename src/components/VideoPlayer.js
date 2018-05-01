@@ -7,6 +7,7 @@ import Pause from '@material-ui/icons/Pause';
 import PlayArrow from '@material-ui/icons/PlayArrow';
 import ReactPlayer from 'react-player'
 import Paper from 'material-ui/Paper';
+import Select from 'material-ui/Select';
 
 class VideoPlayer extends Component {
   constructor(props) {
@@ -64,13 +65,36 @@ class VideoPlayer extends Component {
     this.player.seekTo(start);
   }
 
+  handleChange = (event) => {
+    this.props.onUrlSelected(event.target.value);
+  }
+
   render() {
+    const selectedUrl = this.props.selectedUrl || this.props.urls[0];
+
+    const options = this.props.urls.map(url => 
+      <option key={url} value={url}>{url}</option>
+    );
+    
     return (
       <Paper style={{
         margin: 10,
         textAlign: 'center'
       }}>
         <Grid container spacing={24}>
+          <Grid item sm={12}>
+            <Select
+              native
+              value={selectedUrl}
+              onChange={this.handleChange}
+              inputProps={{
+                id: 'urls'
+              }}
+            >
+              {options}
+            </Select>
+          </Grid>
+            
           <Grid item sm={12}>
             <div style={{
               display: "flex",
@@ -82,7 +106,7 @@ class VideoPlayer extends Component {
                 playing={this.state.playing}
                 onPause={this.onTimeUpdated}
                 onSeek={this.onTimeUpdated}
-                url="videos/l0BCThPijKw.mp4"
+                url={this.props.selectedUrl}
               />
             </div>
           </Grid>

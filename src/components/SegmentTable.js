@@ -7,9 +7,18 @@ import {CSVLink} from 'react-csv';
 import Tooltip from 'material-ui/Tooltip';
 
 export default props => {
-  const csvSegments = props.segments.map(s => [s.start, s.end]);
+  const csvSegments = props.segments.map(s => [
+    s.url, 
+    s.type, 
+    s.start, 
+    s.end, 
+    s.startX, 
+    s.endX, 
+    s.created
+  ]);
+
   const csvData = [
-    ['start', 'end'],
+    ['url', 'type', 'start', 'end', 'startX', 'endX', 'created'],
     ...csvSegments
   ];
 
@@ -26,9 +35,12 @@ export default props => {
         <TableHead>
           <TableRow>
             <TableCell></TableCell>
+            <TableCell>URL</TableCell>
             <TableCell>Type</TableCell>
-            <TableCell>Start</TableCell>
-            <TableCell>End</TableCell>
+            <TableCell>Start Time</TableCell>
+            <TableCell>End Time</TableCell>
+            <TableCell>Playfield StartX</TableCell>
+            <TableCell>Playfield EndX</TableCell>
             <TableCell>Created</TableCell>
           </TableRow>
         </TableHead>
@@ -41,9 +53,12 @@ export default props => {
                     <DeleteForever onClick={() => props.onDelete(segment)} />
                   </Tooltip>
                 </TableCell>
+                <TableCell>{segment.url}</TableCell>
                 <TableCell>{segment.type}</TableCell>
                 <TableCell>{segment.start}</TableCell>
                 <TableCell>{segment.end}</TableCell>
+                <TableCell>{segment.startX}</TableCell>
+                <TableCell>{segment.endX}</TableCell>
                 <TableCell>{segment.created}</TableCell>
               </TableRow>
             );
