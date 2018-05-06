@@ -5,7 +5,6 @@
   "homepage": "https://torsjonas.github.io/video-segment-tagger",
   "dependencies": {
     "@material-ui/icons": "^1.0.0-beta.42",
-    "gh-pages": "^1.1.0",
     "material-ui": "^1.0.0-beta.41",
     "react": "^16.3.1",
     "react-csv": "^1.0.14",
@@ -17,8 +16,6 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
