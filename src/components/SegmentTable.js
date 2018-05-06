@@ -27,8 +27,11 @@ export default props => {
       <Typography variant="headline" component="h3">
         Video segments
       </Typography>
-      <CSVLink data={csvData}>
-        Download CSV
+      <CSVLink data={csvData}
+        filename={"segments.csv"}
+        target="_blank"
+      >
+        Download Segments as CSV
       </CSVLink>
       <div style={{ display: "flex", justifyContent: "center" }}>
       <Table style={{ width: 800 }}>

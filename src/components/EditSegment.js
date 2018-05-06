@@ -6,6 +6,7 @@ import Typography from 'material-ui/Typography';
 import Paper from 'material-ui/Paper';
 import Tooltip from 'material-ui/Tooltip';
 import Select from 'material-ui/Select';
+import { InputLabel } from 'material-ui/Input';
 import Slider from 'react-rangeslider';
 import 'react-rangeslider/lib/index.css';
 
@@ -14,25 +15,32 @@ export default props =>
     <Typography variant="headline" component="h3">
       Create new segment
     </Typography>
+
     <Select
       native
       value={props.selectedType}
       onChange={(event) => props.onTypeChanged(event.target.value)}
       inputProps={{
         id: 'types'
-      }}
-    >
+      }}>
       {
         props.types.map(type => 
           <option key={type} value={type}>{type}</option>
         )
       }
     </Select>
+
+    <Typography variant="caption" style={{marginTop: 20}}>
+      Drag the upper slider to the horizontal left of the playfield in this video.
+    </Typography>
+    <Typography variant="caption">
+      Drag the lower slider to the horizontal right of the playfield in this video.
+    </Typography>
     <div style={{ display: "flex", justifyContent: "center" }}>
       <div style={{
         width: 640, 
         height: 20
-      }}>
+      }}>  
         <Slider
           min={0}
           max={640}
@@ -59,8 +67,8 @@ export default props =>
         <TableHead>
           <TableRow>
             <TableCell>Type</TableCell>
-            <TableCell>Start</TableCell>
-            <TableCell>End</TableCell>
+            <TableCell>Start Time</TableCell>
+            <TableCell>End Time</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
