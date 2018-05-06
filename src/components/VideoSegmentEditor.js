@@ -69,7 +69,6 @@ class VideoSegmentEditor extends Component {
 
   onSave = () => {
     if (!this.state.start || !this.state.end) {
-      console.log('Warning! Start and end required to save');
       return;
     }
 
