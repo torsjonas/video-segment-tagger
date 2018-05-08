@@ -2,7 +2,6 @@
   "name": "video-segment-tagger",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://torsjonas.github.io/video-segment-tagger",
   "dependencies": {
     "@material-ui/icons": "^1.0.0-beta.42",
     "material-ui": "^1.0.0-beta.41",
